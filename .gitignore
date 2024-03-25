@@ -42,3 +42,6 @@ screenshots/
 
 *.log
 *.crdownload
+.idea/
+*.iml
+```

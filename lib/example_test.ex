@@ -60,16 +60,16 @@ defmodule ExampleTest do
     test_name_length = String.length(test_name)
     # Theoretically an atom can be 255 characters, but there's extra stuff appended to the test
     # name that eats up extra characters.
-    max_context_length = 255 - test_name_length - max_describe_length_to_fit_on_one_line - 22
+    max_context_length = 255 - test_name_length - max_describe_length_to_fit_on_one_line - 26
 
     quote location: :keep do
-      for example <- unquote(escaped_examples) do
+      for {example, index} <- unquote(escaped_examples) do
         for {key, val} <- example do
           @tag [{key, val}]
         end
 
         @tag example_test: true
-        test "#{unquote(test_name)} (#{example |> inspect() |> String.slice(0..unquote(max_context_length))})",
+        test "#{index}: #{unquote(test_name)} (#{example |> inspect() |> String.slice(0..unquote(max_context_length))})",
              unquote(context_ast) do
           unquote(blocks)
         end
