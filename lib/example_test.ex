@@ -63,7 +63,7 @@ defmodule ExampleTest do
     max_context_length = 255 - test_name_length - max_describe_length_to_fit_on_one_line - 26
 
     quote location: :keep do
-      for {example, index} <- unquote(escaped_examples) do
+      for {example, index} <- Enum.with_index(unquote(escaped_examples)) do
         for {key, val} <- example do
           @tag [{key, val}]
         end
